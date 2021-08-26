@@ -48,6 +48,5 @@ class vocod():
             self.stream.close()
             self.active = False
 
-
 if __name__=="__main__":
     vocod()

@@ -11,6 +11,7 @@ class vocod():
         self.channels = 2
         self.rate = 44100
         self.p = pyaudio.PyAudio()
+        self.active = False
 
         Button(self.ventana,text="START",command=self.init_task).place(x=100,y=100)
         Button(self.ventana,text="CLOSE",command=self.close_stream).place(x=100,y=160)
@@ -35,6 +36,7 @@ class vocod():
             input = True,
             stream_callback=self.callback,
             )
+        self.active = True
         self.stream.start_stream()
 
     def init_task(self):
@@ -42,7 +44,9 @@ class vocod():
         t.start()
 
     def close_stream(self):
-        self.stream.close()
+        if self.active == True:
+            self.stream.close()
+            self.active = False
 
 
 if __name__=="__main__":

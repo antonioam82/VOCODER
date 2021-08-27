@@ -16,6 +16,7 @@ class vocod():
         Button(self.ventana,text="START",command=self.init_task).place(x=100,y=100)
         Button(self.ventana,text="CLOSE",command=self.close_stream).place(x=100,y=160)
 
+        
         self.ventana.mainloop()
 
     def callback(self, in_data, frame_count, time_info, flag):
@@ -39,13 +40,15 @@ class vocod():
         self.stream.start_stream()
 
     def init_task(self):
-        t = threading.Thread(target=self.listening)
-        t.start()
+        if self.active == False:
+            t = threading.Thread(target=self.listening)
+            t.start()
 
     def close_stream(self):
         if self.active == True:
             self.stream.close()
             self.active = False
+
 
 if __name__=="__main__":
     vocod()
